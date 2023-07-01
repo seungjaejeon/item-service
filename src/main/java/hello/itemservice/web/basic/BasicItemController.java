@@ -37,4 +37,19 @@ public class BasicItemController {
         model.addAttribute("item", item);
         return "basic/item";
     }
+
+    @GetMapping("/add")
+    public String addForm(Model model) {
+        List<Item> items = itemRepository.findAll();
+        Item lastItem = items.get(items.size()-1);
+        model.addAttribute("item", lastItem);
+        return "basic/addForm";
+    }
+
+    @PostMapping("/add")
+    public String save(@ModelAttribute Item item) {
+        itemRepository.save(item);
+        return "basic/item";
+    }
+
 }
